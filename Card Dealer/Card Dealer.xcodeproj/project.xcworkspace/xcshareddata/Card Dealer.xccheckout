@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>76EA4113-C5E3-4837-81C4-71D471E17162</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Card Dealer</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>1C44283817EB2FA6D2A912B92A04B37E5103FDC7</key>
+		<string>https://github.com/sapieneptus/memory_cards.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Card Dealer/Card Dealer.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>1C44283817EB2FA6D2A912B92A04B37E5103FDC7</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/sapieneptus/memory_cards.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>1C44283817EB2FA6D2A912B92A04B37E5103FDC7</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>1C44283817EB2FA6D2A912B92A04B37E5103FDC7</string>
+			<key>IDESourceControlWCCName</key>
+			<string>card_dealer</string>
+		</dict>
+	</array>
+</dict>
+</plist>
