@@ -54,21 +54,18 @@ do that easily with a mutable array (as opposed to, say, a linked-list implement
 Finally, there should be a `rebuild` method to recombine all of the discarded cards with the draw stack. 
 
 ### Card
-Cards need to be aware of their value (number/court), suit, color, and faceup/facedown status. 
+Cards need to be aware of their value (number/court), suit, and faceup/facedown status. 
 Therefore, this will be represented by three variables: an enum value Ace through King 
 (represented by numbers 1 through 13), an enum value representing their suite (taken from the standard French 
 suites, Spade | Club | Hearts | Diamonds, see http://en.wikipedia.org/wiki/Playing_card#Modern_deck_formats), 
 and an enum value representing the color red or black. The faceup/down status can be maintained with a `BOOL`.
 
-Note that the suite technically entails a color already (hearts=red, clubs=black etc.), but if the 
-application were going to actually evaluate hands it would need to redundantly call some function 
-to translate suite to color every time a card is evaluated (e.g. `if (suite == hearts) return red;` or something).
-Storing an extra 2 byte short enum value seems like a reasonable tradeoff to have color explicitly available. 
-
-Similarly, the house could be considered a distinct value from the numeric value (e.g., 'king' vs 13), but 
-as I understand it the evaluation of cards could be implemented by pattern matching the sets of numeric values 
-against a dictionary of hand evaluations. E.g., we don't need to know that you have a 'king' to know that 
-you have a 'pair of kings', since 'pair of kings' can be codified as 'pair of 13'. 
+Note that if hands were being evaluated, we'd also need to note the cards color. We would have two ways of 
+doing this: Keeping a reference to the color explicitely on the card (e.g. via enum), or having a method which
+maps card suite to color. Either approach can be somewhat messy, since we'd need to hard code the relationship
+between suite and color. The cleanest approach might be to make a `Suite` class which entails both the suite
+and its color, and just have class methods to return the correct configurations. However, this is not necessary
+for this app, since evaluation of the hands is out of scope. 
 
 ### RuleSet
 Admittedly I am shaky on domain knowledge for poker, but as I understand it there are a number of commonalities
