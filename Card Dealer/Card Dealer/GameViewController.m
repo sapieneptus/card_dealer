@@ -6,13 +6,13 @@
 //  Copyright (c) 2015 Christopher Fuentes. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "GameViewController.h"
 
-@interface ViewController ()
+@interface GameViewController ()
 
 @end
 
-@implementation ViewController
+@implementation GameViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
