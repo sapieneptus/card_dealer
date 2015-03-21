@@ -7,7 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Constants.h"
 
 @interface Card : NSObject
+@property (nonatomic)           BOOL            faceup;     /* defaults to facedown */
+@property (nonatomic, readonly) CardValue       value;
+@property (nonatomic, readonly) CardSuit        suit;
+
+/* Creates a new card with given value and suit */
++ (Card *)cardWithValue:(CardValue)val suit:(CardSuit)suit;
 
 @end

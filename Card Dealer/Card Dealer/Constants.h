@@ -8,8 +8,17 @@
 
 #import <Foundation/Foundation.h>
 
+typedef unsigned short CardValueType;
+typedef unsigned short CardSuitType;
+
+/* Some macros for conversion between NSNumber and card value/suit enum values */
+#define NSNumberFromCardValue( val )    [NSNumber numberWithShort:( val )]
+#define NSNumberFromCardSuit( val )     [NSNumber numberWithShort:( val )]
+#define CardValueFromNumber( num )      [( num ) shortValue]
+#define CardSuitFromNumber( num )       [( num ) shortValue]
+
 /* Cards have a value Ace through King, which corresponds to 1 through 13 */
-typedef NS_ENUM(unsigned short, CardValue) {
+typedef NS_ENUM(CardValueType, CardValue) {
     kCardValueAce   = 1,
     kCardValueTwo   = 2,
     kCardValueThree = 3,
@@ -25,20 +34,34 @@ typedef NS_ENUM(unsigned short, CardValue) {
     kCardValueKing  = 13,
 };
 
-/* Card colors. As per standard French layout, card can be Red or Black.
-    See http://en.wikipedia.org/wiki/Playing_card#Modern_deck_formats */
-typedef NS_ENUM(unsigned short, CardColor) {
-    kCardColorRed,
-    kCardColorBlack
+/*  Card suits, as in standard French setup
+    See http://en.wikipedia.org/wiki/Playing_card#Modern_deck_formats  */
+typedef NS_ENUM(CardSuitType, CardSuit) {
+    kCardSuitHearts,
+    kCardSuitDiamonds,
+    kCardSuitClubs,
+    kCardSuitSpades
 };
 
-/* Card suites, as in standard French setup */
-typedef NS_ENUM(unsigned short, CardSuite) {
-    kCardSuiteHearts,
-    kCardSuiteDiamonds,
-    kCardSuiteClubs,
-    kCardSuiteSpades
-};
+/* Number of sets of cards to use in a single deck */
+extern const unsigned short NUM_CARD_SETS;
 
-/* Number of 52 card decks to use */
-extern const unsigned short NUM_DECKS;
+/* Number of cards per deck. Should equal number of card values * number of card suits */
+extern const unsigned short NUM_CARDS_PER_SET;
+
+/* Number of players per game. For this app, it's just a constant */
+extern const unsigned short NUM_PLAYERS;
+
+/* 
+ * Texas Hold'em configuration 
+ */
+extern const unsigned short TEXAS_HOLDEM_NUM_FACE_UP;
+extern const unsigned short TEXAS_HOLDEM_NUM_FACE_DOWN;
+extern const unsigned short TEXAS_HOLDEM_NUM_COMMUNITY;
+
+/* 
+ * Five Card Stud configuration
+ */
+extern const unsigned short FIVE_CARD_STUD_NUM_FACE_UP;
+extern const unsigned short FIVE_CARD_STUD_NUM_FACE_DOWN;
+extern const unsigned short FIVE_CARD_STUD_NUM_COMMUNITY;

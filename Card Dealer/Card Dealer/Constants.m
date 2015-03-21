@@ -8,17 +8,27 @@
 
 #import "Constants.h"
 
-const unsigned short NUM_DECKS  = 1;
+/*
+ * Deck configuration
+ */
+const unsigned short NUM_CARD_SETS                  = 1;
+const unsigned short NUM_CARDS_PER_SET              = 52;
 
+/*
+ * Player configuration
+ */
+const unsigned short NUM_PLAYERS                    = 4;
 
+/*
+ * Texas Hold'em configuration
+ */
+const unsigned short TEXAS_HOLDEM_NUM_FACE_UP       = 0;
+const unsigned short TEXAS_HOLDEM_NUM_FACE_DOWN     = 2;
+const unsigned short TEXAS_HOLDEM_NUM_COMMUNITY     = 3;
 
-/* Array of NSNumbers representing all valid card values */
-const NSArray *CARD_VALUES = @[
-                               [NSNumber numberWithShort:kCardValueAce],
-                               ];
-
-/* Array of NSNumbers representing all valid card colors */
-extern const NSArray *CARD_COLORS;
-
-/* Array of NSNumbers representing all valid card suites */
-extern const NSArray *CARD_SUITES;
+/*
+ * Five Card Stud configuration
+ */
+const unsigned short FIVE_CARD_STUD_NUM_FACE_UP     = 4;
+const unsigned short FIVE_CARD_STUD_NUM_FACE_DOWN   = 1;
+const unsigned short FIVE_CARD_STUD_NUM_COMMUNITY   = 0;

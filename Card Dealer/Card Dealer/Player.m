@@ -16,7 +16,9 @@
  *  another class.
  */
 - (void)dealHand:(NSArray *)hand {
-    if (hand == _hand) return;
+    if (hand == _hand) {
+        return;
+    }
     
     [_hand release];
     _hand   = [hand retain];

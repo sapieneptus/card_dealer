@@ -18,6 +18,10 @@
 		CB9E67A61ABDE0AA0053CC8B /* Deck.m in Sources */ = {isa = PBXBuildFile; fileRef = CB9E67A51ABDE0AA0053CC8B /* Deck.m */; };
 		CB9E67A91ABDE1340053CC8B /* Card.m in Sources */ = {isa = PBXBuildFile; fileRef = CB9E67A81ABDE1340053CC8B /* Card.m */; };
 		CB9E67AC1ABDE7330053CC8B /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = CB9E67AB1ABDE7330053CC8B /* Constants.m */; };
+		CB9E67AF1ABE16420053CC8B /* Game.m in Sources */ = {isa = PBXBuildFile; fileRef = CB9E67AE1ABE16420053CC8B /* Game.m */; };
+		CB9E67B01ABE16420053CC8B /* Game.m in Sources */ = {isa = PBXBuildFile; fileRef = CB9E67AE1ABE16420053CC8B /* Game.m */; };
+		CB9E67B31ABE17420053CC8B /* RuleSet.m in Sources */ = {isa = PBXBuildFile; fileRef = CB9E67B21ABE17420053CC8B /* RuleSet.m */; };
+		CB9E67B41ABE17420053CC8B /* RuleSet.m in Sources */ = {isa = PBXBuildFile; fileRef = CB9E67B21ABE17420053CC8B /* RuleSet.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +56,10 @@
 		CB9E67A81ABDE1340053CC8B /* Card.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Card.m; sourceTree = "<group>"; };
 		CB9E67AA1ABDE7330053CC8B /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		CB9E67AB1ABDE7330053CC8B /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
+		CB9E67AD1ABE16420053CC8B /* Game.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Game.h; sourceTree = "<group>"; };
+		CB9E67AE1ABE16420053CC8B /* Game.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Game.m; sourceTree = "<group>"; };
+		CB9E67B11ABE17420053CC8B /* RuleSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RuleSet.h; sourceTree = "<group>"; };
+		CB9E67B21ABE17420053CC8B /* RuleSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RuleSet.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -159,6 +167,10 @@
 				CB9E67A51ABDE0AA0053CC8B /* Deck.m */,
 				CB9E67A71ABDE1340053CC8B /* Card.h */,
 				CB9E67A81ABDE1340053CC8B /* Card.m */,
+				CB9E67AD1ABE16420053CC8B /* Game.h */,
+				CB9E67AE1ABE16420053CC8B /* Game.m */,
+				CB9E67B11ABE17420053CC8B /* RuleSet.h */,
+				CB9E67B21ABE17420053CC8B /* RuleSet.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -266,8 +278,10 @@
 				CB9E67A61ABDE0AA0053CC8B /* Deck.m in Sources */,
 				CB9E67A31ABDDF500053CC8B /* Player.m in Sources */,
 				CB9E67811ABDC4C40053CC8B /* GameViewController.m in Sources */,
+				CB9E67AF1ABE16420053CC8B /* Game.m in Sources */,
 				CB9E677E1ABDC4C40053CC8B /* AppDelegate.m in Sources */,
 				CB9E677B1ABDC4C40053CC8B /* main.m in Sources */,
+				CB9E67B31ABE17420053CC8B /* RuleSet.m in Sources */,
 				CB9E67AC1ABDE7330053CC8B /* Constants.m in Sources */,
 				CB9E67A91ABDE1340053CC8B /* Card.m in Sources */,
 			);
@@ -277,7 +291,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB9E67B41ABE17420053CC8B /* RuleSet.m in Sources */,
 				CB9E67951ABDC4C50053CC8B /* Card_DealerTests.m in Sources */,
+				CB9E67B01ABE16420053CC8B /* Game.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -462,6 +478,7 @@
 				CB9E679A1ABDC4C50053CC8B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		CB9E679B1ABDC4C50053CC8B /* Build configuration list for PBXNativeTarget "Card DealerTests" */ = {
 			isa = XCConfigurationList;
@@ -470,6 +487,7 @@
 				CB9E679D1ABDC4C50053CC8B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
