@@ -42,19 +42,16 @@ Players should have a method for receiving a new hand of cards, which involves d
 
 ### Deck
 A deck can be thought of as two collections of cards: the facedown stack from which you draw, and the 
-cards that are no longer in the deck (either in play or discarded), but will return to the deck at next 
-shuffle. Therefore, one mutable array will be maintained as the draw-stack (from which cards are drawn) 
-and another will be maintained as the drawn-stack (cards which have been used up. For this app, it 
-doesn't really matter semantically where they are as long as it is noted that they are not in the
-draw stack). 
-
-An alternative (but worse) approach is simply to maintain the draw stack and then re-create a new 
-shuffled deck at each shuffle action. However, this needlessly allocates and deallocates instances of 
-the same set of cards. 
+cards that are no longer in the deck (either in play or discarded) but will return to the deck at the next 
+round. Instead of maintaining two separate objects, however, we can simply have a `short` index which indicates
+the next card to draw. The index start at the top of the stack and decrement each time a card is drawn. The 
+cards above the index are then considered to be in play/discared/not available for draw. Recombining them 
+with the deck is then very simple: just reset the index. 
 
 There should be a class method for generating a new shuffled deck as well as a `shuffle` instance method.
-`- (void)shuffle` will shuffle the underlying mutable array in place, since we can do that easily with 
-a mutable array (as opposed to, say, a linked-list implementation of a stack). 
+`- (void)shuffle` will shuffle the undrawn portion of the underlying mutable array in place, since we can 
+do that easily with a mutable array (as opposed to, say, a linked-list implementation of a stack). 
+Finally, there should be a `rebuild` method to recombine all of the discarded cards with the draw stack. 
 
 ### Card
 Cards need to be aware of their value (number/court), suit, color, and faceup/facedown status. 
