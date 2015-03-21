@@ -1,6 +1,8 @@
 # Card Dealer
-Objective-C iOS App w/out ARC representing two card games
+Objective-C iOS App w/out ARC representing two card games.
+Clone repo, open XCode and run. Built using iOS8 SDK. 
 
+##Project Plan
 
 ### Games
 This project implements the dealer component of two card games: 5 Card Stud and Texas Hold'em.
