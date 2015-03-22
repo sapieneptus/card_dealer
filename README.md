@@ -18,10 +18,20 @@ The game does not
   - Evaluate player hands
   - Determine a winner
   - Handle the individual steps within a round (e.g., the flop, turn, and river for Texas Hold'em)
+  - Handle the existence of Jokers or Wildcards
   
 As I understand it, in casinos there is a very slanted distribution of cards in a playing deck to
 bend odds against the players. However, for this application the deck will be a standard uniform 52 card
 deck. The deck is shuffled after each round (I'm not sure if that's standard practice but seems reasonable). 
+
+All cards are visible on the screen (i.e., face-down cards are not hidden). This allows you to verify that 
+cards are evenly distributed and not duplicated. Cards which are supposed to be face down are therefore 
+instead turned at a slant. 
+
+### Configuration
+In the `Constants.m` class, you can change some variables such as number of players, number of sets of cards 
+(decks) to use (e.g., 6-deck decks) and the face up / face down / community pool configuration for the 
+specific card games. 
 
 ### Threading
 This app requires no web calls and has a small enough data footprint that disk storage isn't necessary.
