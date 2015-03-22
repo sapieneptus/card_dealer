@@ -3,6 +3,8 @@ Objective-C iOS App w/out ARC representing two card games.
 Clone repo, open XCode and run. Built using iOS8 SDK. 
 Open Source Playing Card .png image credit to Byron Knol (https://code.google.com/p/vector-playing-cards/)
 
+The `XCTest` framework was used to test the models of this project (see `Card_DealerTests.m`).  
+
 ##Project Plan
 
 ### Games
