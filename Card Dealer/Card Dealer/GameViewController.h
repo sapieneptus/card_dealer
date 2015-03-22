@@ -12,6 +12,7 @@
 
 @property (retain, nonatomic) IBOutlet UITableView *gameInfoTable;
 @property (retain, nonatomic) IBOutlet UILabel *gameNameLabel;
+@property (retain, nonatomic) IBOutlet UIButton *dealRoundButton;
 
 - (IBAction)newGamePressed:(id)sender;
 - (IBAction)dealRoundPressed:(id)sender;

@@ -143,6 +143,9 @@ static const NSArray *GAME_RULES_OPTION_NAMES;
         
         /* Since the game table is initally hidden, make sure it's now visible */
         _gameInfoTable.hidden = NO;
+        
+        /* Since the 'deal round' button is initially disabled, we can now enable it */
+        _dealRoundButton.enabled = YES;
     }
 }
 
@@ -176,6 +179,7 @@ static const NSArray *GAME_RULES_OPTION_NAMES;
 - (void)dealloc {
     [_gameInfoTable release];
     [_gameNameLabel release];
+    [_dealRoundButton release];
     [super dealloc];
 }
 

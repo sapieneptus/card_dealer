@@ -33,7 +33,7 @@
                                     <action selector="newGamePressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="dnF-r7-74z"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t0o-Ev-kiT">
+                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t0o-Ev-kiT">
                                 <rect key="frame" x="435" y="557" width="125" height="41"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="125" id="Frh-lh-zBB"/>
@@ -81,6 +81,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="dealRoundButton" destination="t0o-Ev-kiT" id="o6P-fm-zHv"/>
                         <outlet property="gameInfoTable" destination="yOi-Fx-lhc" id="key-Xz-cIH"/>
                         <outlet property="gameNameLabel" destination="2W6-Cu-waM" id="RB2-xP-2B8"/>
                     </connections>
