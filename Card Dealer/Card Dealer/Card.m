@@ -49,19 +49,19 @@
 
 + (NSString *)nameForCardValue:(CardValue)val {
     switch (val) {
-            HANDLE_CASE(kCardValueAce,      @"Ace");
-            HANDLE_CASE(kCardValueTwo,      @"Two");
-            HANDLE_CASE(kCardValueThree,    @"Three");
-            HANDLE_CASE(kCardValueFour,     @"Four");
-            HANDLE_CASE(kCardValueFive,     @"Five");
-            HANDLE_CASE(kCardValueSix,      @"Six");
-            HANDLE_CASE(kCardValueSeven,    @"Seven");
-            HANDLE_CASE(kCardValueEight,    @"Eight");
-            HANDLE_CASE(kCardValueNine,     @"Nine");
-            HANDLE_CASE(kCardValueTen,      @"Ten");
-            HANDLE_CASE(kCardValueJack,     @"Jack");
-            HANDLE_CASE(kCardValueQueen,    @"Queen");
-            HANDLE_CASE(kCardValueKing,     @"King");
+            HANDLE_CASE(kCardValueAce,      @"ace");
+            HANDLE_CASE(kCardValueTwo,      @"2");
+            HANDLE_CASE(kCardValueThree,    @"3");
+            HANDLE_CASE(kCardValueFour,     @"4");
+            HANDLE_CASE(kCardValueFive,     @"5");
+            HANDLE_CASE(kCardValueSix,      @"6");
+            HANDLE_CASE(kCardValueSeven,    @"7");
+            HANDLE_CASE(kCardValueEight,    @"8");
+            HANDLE_CASE(kCardValueNine,     @"9");
+            HANDLE_CASE(kCardValueTen,      @"10");
+            HANDLE_CASE(kCardValueJack,     @"jack");
+            HANDLE_CASE(kCardValueQueen,    @"queen");
+            HANDLE_CASE(kCardValueKing,     @"king");
             
         default:
             NSAssert(NO, @"Card value not handled in nameForCardValue: %d", val);
@@ -71,10 +71,10 @@
 
 + (NSString *)nameForCardSuit:(CardSuit)suit {
     switch (suit) {
-            HANDLE_CASE(kCardSuitClubs,     @"Clubs");
-            HANDLE_CASE(kCardSuitHearts,    @"Hearts");
-            HANDLE_CASE(kCardSuitSpades,    @"Spades");
-            HANDLE_CASE(kCardSuitDiamonds,  @"Diamonds");
+            HANDLE_CASE(kCardSuitClubs,     @"clubs");
+            HANDLE_CASE(kCardSuitHearts,    @"hearts");
+            HANDLE_CASE(kCardSuitSpades,    @"spades");
+            HANDLE_CASE(kCardSuitDiamonds,  @"diamonds");
         default:
             NSAssert(NO, @"Card value not handled in nameForCardValue: %d", suit);
             return nil;

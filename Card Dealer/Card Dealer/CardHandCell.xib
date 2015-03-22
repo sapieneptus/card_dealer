@@ -14,13 +14,16 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Player N:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HBT-gv-bR1">
-                        <rect key="frame" x="14" y="8" width="70" height="21"/>
+                        <rect key="frame" x="14" y="8" width="70" height="20"/>
                         <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="14"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="playerNameLabel" destination="HBT-gv-bR1" id="wvg-KZ-Egt"/>
+            </connections>
             <point key="canvasLocation" x="340" y="452"/>
         </tableViewCell>
     </objects>

@@ -10,4 +10,9 @@
 
 @interface CardHandCell : UITableViewCell
 
+@property (retain, nonatomic) IBOutlet UILabel *playerNameLabel;
+
+/* Setup cell UI from an array of Card objects */
+- (void)fillFromCards:(NSArray *)cards;
+
 @end

@@ -7,7 +7,9 @@
 //
 
 #import "GameViewController.h"
+#import "CardHandCell.h"
 #import "Constants.h"
+#import "Player.h"
 #import "Game.h"
 
 #define CELL_ID                         @"cell_id"
@@ -16,6 +18,7 @@
 #define CHOOSE_GAME_ALERT_TITLE         @"Choose Game"
 #define CHOOSE_GAME_ALERT_MESSAGE       @""
 #define CHOOSE_GAME_CANCEL_BUTTON_TITLE @"Cancel"
+#define CARD_HAND_CELL_NIB_NAME         @"CardHandCell"
 
 typedef NS_ENUM(short, TableSections) {
     kTableSectionCommunity,
@@ -48,6 +51,10 @@ static const NSArray *GAME_RULES_OPTION_NAMES;
     [super viewDidLoad];
     _gameInfoTable.dataSource   = self;
     _gameInfoTable.delegate     = self;
+    
+    /* Register our custom cell with the table for displaying cards */
+    [_gameInfoTable registerNib:[UINib nibWithNibName:CARD_HAND_CELL_NIB_NAME bundle:nil]
+         forCellReuseIdentifier:CELL_ID];
 }
 
 
@@ -95,23 +102,20 @@ static const NSArray *GAME_RULES_OPTION_NAMES;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_ID];
+    CardHandCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_ID];
     if (!cell) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CELL_ID] autorelease];
+        cell = [[[CardHandCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CELL_ID] autorelease];
     }
     
-    if ([[Game sharedGame] hasCommunityPool]) {
-        if (indexPath.section == kTableSectionCommunity) {
-            cell.textLabel.text = @"";
-        } else {
-            cell.textLabel.text = [NSString stringWithFormat:@"Player %ld", indexPath.row + 1];
-        }
+    if ([[Game sharedGame] hasCommunityPool] && indexPath.section == kTableSectionCommunity) {
+        cell.playerNameLabel.text = @"Community Cards";
+        [cell fillFromCards:[Game sharedGame].communityCards];
     } else {
-        cell.textLabel.text = [NSString stringWithFormat:@"Player %ld", indexPath.row + 1];
+        /* Since index path row is 0 indexed, we can add 1 to get a more natural looking enumeration. */
+        cell.playerNameLabel.text   = [NSString stringWithFormat:@"Player %ld", indexPath.row + 1];
+        Player *player              = [Game sharedGame].players[indexPath.row];
+        [cell fillFromCards:player.hand];
     }
-    
-    /* Cells should not appear to be interactive */
-    cell.selectionStyle     = UITableViewCellSelectionStyleNone;
     
     return cell;
 }
