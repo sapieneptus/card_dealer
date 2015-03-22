@@ -105,19 +105,31 @@ static NSArray *CARD_SUITS;
 #pragma mark - Public API
 
 /*
- * Draw doesn't mutate the stack, it simply returns the card at 
+ * drawCards doesn't mutate the stack, it simply returns the card at
  * index `nextDrawIndex` and decrements `nextDrawIndex`.
  *
- * If all cards have been drawn, returns nil.
+ *  If less cards are available than requested, returns nil.
+ *  Presumably, this is an error condition, as the deck should 
+ *  be sufficiently large to handle the number of players/game. 
+ *  It is also not reasonable to under-deal a player. 
+ *  
+ *  The calling method should therefore check for the nil case.
  */
-- (Card *)draw {
-    if (_nextDrawIndex == 0) {
-        return nil;
-    }
+- (NSArray *)drawCards:(unsigned short)num;{
+    NSMutableArray *cards = [NSMutableArray arrayWithCapacity:num];
     
-    Card *next = _cardStack[_nextDrawIndex];
-    _nextDrawIndex--;
-    return next;
+    while ( num-- ) {
+        /* Check that we have more cards left */
+        if (_nextDrawIndex == 0) { return nil; }
+        
+        /* Pop the next card from the stack */
+        Card *next = _cardStack[_nextDrawIndex];
+        [cards addObject:next];
+        
+        /* Move the index of the next draw */
+        _nextDrawIndex--;
+    }
+    return [NSArray arrayWithArray:cards];
 }
 
 - (void)shuffle {
@@ -133,6 +145,13 @@ static NSArray *CARD_SUITS;
 }
 
 - (void)rebuild {
+    /* Turn all cards in play face-down */
+    for (int i = _nextDrawIndex - 1; i < _cardStack.count; i++){
+        Card *card  = _cardStack[i];
+        card.faceup = NO;
+    }
+    
+    /* Reset the draw index to the top of the stack */
     _nextDrawIndex = _cardStack.count - 1;
 }
 

@@ -7,11 +7,18 @@
 //
 
 #import <Foundation/Foundation.h>
-
-#import "Deck.h"
-#import "Player.h"
 #import "RuleSet.h"
 
 @interface Game : NSObject
+@property (nonatomic, retain, readonly)   NSArray *players;
+@property (nonatomic, retain, readonly)   NSArray *communityCards;
 
+/* Deals the next round to players */
+- (void)dealRound;
+
+/* Start a new game with a given ruleset */
+- (void)newGame:(RuleSet *)rules;
+
+/* Game Singleton */
++ (Game *)sharedGame;
 @end

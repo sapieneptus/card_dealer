@@ -11,8 +11,8 @@
 
 @interface Deck : NSObject
 
-/* returns the topmost card in the deck */
-- (Card *)draw;
+/* returns the topmost num cards in the deck, or nil if that many cards aren't available */
+- (NSArray *)drawCards:(unsigned short)num;
 
 /* Replaces all cards in the deck */
 - (void)rebuild;

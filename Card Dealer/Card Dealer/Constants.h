@@ -17,6 +17,10 @@ typedef unsigned short CardSuitType;
 #define CardValueFromNumber( num )      [( num ) shortValue]
 #define CardSuitFromNumber( num )       [( num ) shortValue]
 
+/* Convenience macro to help clean up the switch statements where 
+ * a value is returned without any other operations performed */
+#define HANDLE_CASE( val, ret ) case ( val ): return ret; break
+
 /* Cards have a value Ace through King, which corresponds to 1 through 13 */
 typedef NS_ENUM(CardValueType, CardValue) {
     kCardValueAce   = 1,

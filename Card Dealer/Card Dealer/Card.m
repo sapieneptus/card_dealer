@@ -47,8 +47,6 @@
 
 #pragma mark - Card variables to NSString
 
-/* Convenience macro to help clean up the switch statements in the next two methods */
-#define HANDLE_CASE( val, ret ) case ( val ): return ret; break
 + (NSString *)nameForCardValue:(CardValue)val {
     switch (val) {
             HANDLE_CASE(kCardValueAce,      @"Ace");
@@ -82,7 +80,6 @@
             return nil;
     }
 }
-#undef HANDLE_CASE
 
 /* Description for UI purposes */
 - (NSString *)description {
