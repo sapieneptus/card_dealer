@@ -73,3 +73,24 @@ extern const unsigned short FIVE_CARD_STUD_NUM_FACE_UP;
 extern const unsigned short FIVE_CARD_STUD_NUM_FACE_DOWN;
 extern const unsigned short FIVE_CARD_STUD_NUM_COMMUNITY;
 
+/*
+ *  Constants for Card UI Layout
+ */
+extern const float CARD_START_Y;
+extern const float CARD_START_X;
+extern const float CARD_PADDING;
+extern const float CARD_HEIGHT;
+extern const float CARD_WIDTH;
+
+/*
+ *   String Constants
+ */
+#define COMMUNITY_CARDS_CELL_TITLE                  @"Community Cards";
+#define CARD_HAND_CELL_ID                           @"card_hand_cell_id"
+#define PLAYER_HANDS_SECTION_TITLE                  @"Player Hands"
+#define COMMUNITY_POOL_SECTION_TITLE                @"Community Pool"
+#define CHOOSE_GAME_ALERT_TITLE                     @"Choose Game"
+#define CHOOSE_GAME_ALERT_MESSAGE                   @""
+#define CHOOSE_GAME_CANCEL_BUTTON_TITLE             @"Cancel"
+#define CARD_HAND_CELL_NIB_NAME                     @"CardHandCell"
+

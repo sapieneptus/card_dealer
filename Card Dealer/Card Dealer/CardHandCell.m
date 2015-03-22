@@ -7,13 +7,8 @@
 //
 
 #import "CardHandCell.h"
+#import "Constants.h"
 #import "Card.h"
-
-#define CARD_START_Y     35
-#define CARD_START_X     20
-#define CARD_PADDING     25
-#define CARD_HEIGHT 65
-#define CARD_WIDTH  40
 
 
 @interface CardHandCell ()

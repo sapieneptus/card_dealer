@@ -33,3 +33,12 @@ const unsigned short TEXAS_HOLDEM_NUM_COMMUNITY     = 3;
 const unsigned short FIVE_CARD_STUD_NUM_FACE_UP     = 4;
 const unsigned short FIVE_CARD_STUD_NUM_FACE_DOWN   = 1;
 const unsigned short FIVE_CARD_STUD_NUM_COMMUNITY   = 0;
+
+/*
+*   Constants for Card UI Layout
+*/
+const float CARD_START_Y                            = 35.0;
+const float CARD_START_X                            = 20.0;
+const float CARD_PADDING                            = 25.0;
+const float CARD_HEIGHT                             = 65.0;
+const float CARD_WIDTH                              = 40.0;

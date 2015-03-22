@@ -12,14 +12,6 @@
 #import "Player.h"
 #import "Game.h"
 
-#define CELL_ID                         @"cell_id"
-#define PLAYER_HANDS_SECTION_TITLE      @"Player Hands"
-#define COMMUNITY_POOL_SECTION_TITLE    @"Community Pool"
-#define CHOOSE_GAME_ALERT_TITLE         @"Choose Game"
-#define CHOOSE_GAME_ALERT_MESSAGE       @""
-#define CHOOSE_GAME_CANCEL_BUTTON_TITLE @"Cancel"
-#define CARD_HAND_CELL_NIB_NAME         @"CardHandCell"
-
 typedef NS_ENUM(short, TableSections) {
     kTableSectionCommunity,
     kTableSectionPlayers
@@ -54,7 +46,7 @@ static const NSArray *GAME_RULES_OPTION_NAMES;
     
     /* Register our custom cell with the table for displaying cards */
     [_gameInfoTable registerNib:[UINib nibWithNibName:CARD_HAND_CELL_NIB_NAME bundle:nil]
-         forCellReuseIdentifier:CELL_ID];
+         forCellReuseIdentifier:CARD_HAND_CELL_ID];
 }
 
 
@@ -102,13 +94,14 @@ static const NSArray *GAME_RULES_OPTION_NAMES;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    CardHandCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_ID];
+    CardHandCell *cell = [tableView dequeueReusableCellWithIdentifier:CARD_HAND_CELL_ID];
     if (!cell) {
-        cell = [[[CardHandCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CELL_ID] autorelease];
+        cell = [[[CardHandCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                    reuseIdentifier:CARD_HAND_CELL_ID] autorelease];
     }
     
     if ([[Game sharedGame] hasCommunityPool] && indexPath.section == kTableSectionCommunity) {
-        cell.playerNameLabel.text = @"Community Cards";
+        cell.playerNameLabel.text = COMMUNITY_CARDS_CELL_TITLE;
         [cell fillFromCards:[Game sharedGame].communityCards];
     } else {
         /* Since index path row is 0 indexed, we can add 1 to get a more natural looking enumeration. */
@@ -157,7 +150,6 @@ static const NSArray *GAME_RULES_OPTION_NAMES;
 }
 
 #pragma mark - Dealloc
-
 - (void)dealloc {
     [_gameInfoTable release];
     [super dealloc];
