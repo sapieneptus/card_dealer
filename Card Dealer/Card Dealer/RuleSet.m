@@ -59,7 +59,6 @@
 #pragma mark - dealloc
 - (void)dealloc {
     [_name release];
-    _name = nil;
     [super dealloc];
 }
 

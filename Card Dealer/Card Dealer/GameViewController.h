@@ -8,8 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface GameViewController : UIViewController
+@interface GameViewController : UIViewController<UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate>
 
+@property (retain, nonatomic) IBOutlet UITableView *gameInfoTable;
+
+- (IBAction)newGamePressed:(id)sender;
+- (IBAction)dealRoundPressed:(id)sender;
 
 @end
 

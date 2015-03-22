@@ -158,7 +158,6 @@ static NSArray *CARD_SUITS;
 #pragma mark - Dealloc
 - (void)dealloc {
     [_cardStack release];
-    _cardStack = nil;
     [super dealloc];
 }
 

@@ -38,6 +38,9 @@ static Game *sharedGame = nil;
         }
         
         _players = [[NSArray arrayWithArray:players] retain];
+        
+        /*  We don't bother initializing communityCards or rules because they haven't
+            been set by the player yet. */
     }
     return self;
 }
@@ -158,11 +161,6 @@ static Game *sharedGame = nil;
     [_players release];
     [_deck release];
     [_communityCards release];
-    
-    _rules          = nil;
-    _players        = nil;
-    _deck           = nil;
-    _communityCards = nil;
     
     [super dealloc];
 }

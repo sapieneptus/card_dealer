@@ -20,11 +20,10 @@
 
 - (void)setUp {
     [super setUp];
-    // Put setup code here. This method is called before the invocation of each test method in the class.
+    
 }
 
 - (void)tearDown {
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
     [super tearDown];
 }
 
@@ -100,7 +99,7 @@
         NSInteger cardsPerRound     = (cardsPerPlayer * NUM_PLAYERS ) + rules.numCommunityCards;
         int maxCards                = (NUM_CARD_SETS * NUM_CARDS_PER_SET);
         XCTAssert(cardsPerRound <= maxCards,
-                  @"Decksize is %d but size %lu is required. Check configuration in Constants.m",
+                  @"Decksize is %d but size %ld is required. Check configuration in Constants.m",
                   maxCards, (long)cardsPerRound);
         
         /* Ensure that players are consistently dealt the appropriate number of cards */
@@ -110,7 +109,7 @@
             for (Player *player in game.players) {
                 unsigned short numPlayerCards = rules.numFaceDownCards + rules.numFaceUpCards;
                 XCTAssert(player.hand.count == numPlayerCards,
-                          @"Expected %d cards for player, got %lu", numPlayerCards, (long)player.hand.count);
+                          @"Expected %d cards for player, got %ld", numPlayerCards, (long)player.hand.count);
             }
         }
     }
