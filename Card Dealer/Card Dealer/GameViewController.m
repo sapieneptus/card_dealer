@@ -77,6 +77,10 @@ static const NSArray *GAME_RULES_OPTION_NAMES;
     }
 }
 
+/*
+ *  If the current game has a community section, then we switch on the section value and
+ *  return the appropriate title. Else we just return the title for the players section.
+ */
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     if ([[Game sharedGame] hasCommunityPool]) {
         switch (section) {
@@ -93,6 +97,10 @@ static const NSArray *GAME_RULES_OPTION_NAMES;
     }
 }
 
+/*
+ *  tableView:cellForRowAtIndexPath initializes the appropriate cell: either the Community cell, or
+ *  a cell for an individual player.
+ */
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     CardHandCell *cell = [tableView dequeueReusableCellWithIdentifier:CARD_HAND_CELL_ID];
     if (!cell) {
@@ -114,6 +122,11 @@ static const NSArray *GAME_RULES_OPTION_NAMES;
 }
 
 #pragma mark - UIAlertView Delegate Methods
+/*
+ *  When an alertview dismisses, the user has either chosen to play a new game
+ *  or pressed cancel. In the former case, we tell our sharedGame object to load
+ *  a new game and reload the table.
+ */
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (buttonIndex == 0) {
         /* Canel button, do nothing */
@@ -123,6 +136,7 @@ static const NSArray *GAME_RULES_OPTION_NAMES;
         [[Game sharedGame] newGame:rules];
         [_gameInfoTable reloadData];
         
+        /* Since the game table is initally hidden, make sure it's now visible */
         _gameInfoTable.hidden = NO;
     }
 }
@@ -134,6 +148,10 @@ static const NSArray *GAME_RULES_OPTION_NAMES;
 }
 
 #pragma mark - Button Actions
+/*
+ *  When the user indicates they want to play a new game, we let them choose 
+ *  via alertview dialog.
+ */
 - (IBAction)newGamePressed:(id)sender {
     UIAlertView *av = [[[UIAlertView alloc] initWithTitle:CHOOSE_GAME_ALERT_TITLE
                                                  message:CHOOSE_GAME_ALERT_MESSAGE
