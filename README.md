@@ -13,11 +13,11 @@ Admittedly, I don't know how to play either of these games, so the rules are tak
 http://www.pagat.com/poker/variants/5stud.html and http://en.wikipedia.org/wiki/Texas_hold_%27em 
 respectively. 
 
-The game allows you to 
+The app allows you to 
   - Start a new game (of either variety) 
   - Deal the next round for the current game
    
-The game does not
+The app does not
   - Evaluate player hands
   - Determine a winner
   - Handle the individual steps within a round (e.g., the 'flop', 'turn', and 'river' for Texas Hold'em)
@@ -36,6 +36,9 @@ instead turned at a slant to indicate that they should be considered face-down.
 In the `Constants.m` class, you can change some variables such as number of players, number of sets of cards 
 (decks) to use (e.g., 6-deck decks) and the face up / face down / community pool configuration for the 
 specific card games. 
+
+Keep in mind, however, that there are only images to support the standard 52 card deck. You can add additional
+values/suits, but no image will render for any card outside of the standard 52 combinations.
 
 ### Threading
 This app requires no web calls and has a small enough data footprint that disk storage isn't necessary.
