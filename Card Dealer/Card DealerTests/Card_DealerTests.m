@@ -28,7 +28,7 @@
     [super tearDown];
 }
 
-- (void)testDeckAPI {
+- (void)testDeckShuffle {
     Deck *deck = [Deck newDeck];
     XCTAssert(deck, @"Deck class constructor returned nil.");
     
@@ -42,36 +42,35 @@
     @catch (NSException *exception) {
         XCTAssert(NO, @"Shuffle failed: %@", [exception reason]);
     }
-    @finally {
-        /* Make sure that drawing the deck, rebuilding, and drawing again returns the same sequence. */
-        [deck rebuild];
-        
-        NSArray *cards = [deck drawCards:(NUM_CARD_SETS * NUM_CARDS_PER_SET)];
-        
-        [deck rebuild];
-        
-        NSArray *newCards = [deck drawCards:(NUM_CARD_SETS * NUM_CARDS_PER_SET)];
-        for (int i = 0; i < cards.count; i++) {
-            XCTAssert(cards[i] == newCards[i], @"Deck is out of order after draw");
-        }
-        
-        /* Make sure that when a card is drawn, it can't be drawn again.
-         Note that we can't use isEqual, since it is possible for there to be
-         duplicates if NUM_CARD_SETS > 1 */
-        
-        [deck rebuild];
-        [deck shuffle];
-        
-        Card *card = [deck drawCards:1][0];
-        NSArray *draw;
-        while ( (draw = [deck drawCards:1]) != nil) {
-            Card *drawn = draw[0];
-            XCTAssert(card != drawn, @"The same card was drawn twice from the deck.");
-        }
+}
+
+- (void)testDeckIntegrity {
+    Deck *deck          = [Deck newDeck];
+    
+    NSArray *cards      = [deck drawCards:TOTAL_NUM_CARDS];
+    [deck rebuild];
+    NSArray *newCards   = [deck drawCards:TOTAL_NUM_CARDS];
+    
+    for (int i = 0; i < cards.count; i++) {
+        XCTAssert(cards[i] == newCards[i], @"Deck is out of order after draw");
+    }
+    
+    /* Make sure that when a card is drawn, it can't be drawn again.
+     Note that we can't use isEqual, since it is possible for there to be
+     duplicates if NUM_CARD_SETS > 1 */
+    
+    [deck rebuild];
+    [deck shuffle];
+    
+    Card *card = [deck drawCards:1][0];
+    NSArray *draw;
+    while ( (draw = [deck drawCards:1]) != nil) {
+        Card *drawn = draw[0];
+        XCTAssert(card != drawn, @"The same card was drawn twice from the deck.");
     }
 }
 
-- (void)testGameAPI {
+- (void)testGameSetup {
 
     /* Test singleton enforcement */
     Game *game  = [Game sharedGame];
@@ -81,7 +80,13 @@
     /* Ensure num players is correct */
     NSInteger gameNumPlayers = game.players.count;
     XCTAssert(game.players.count == NUM_PLAYERS, @"Expected %d players, got %ld", NUM_PLAYERS, (long)gameNumPlayers);
-   
+}
+
+- (void)testGameWithRules {
+    Game *game  = [Game sharedGame];
+    
+    NSInteger gameNumPlayers = game.players.count;
+    
     /* Test that all rules work with the decksize */
     for (RuleSet *rules in @[[RuleSet texasHoldemRules], [RuleSet fiveCardStudRules]]) {
         [game newGame:rules];
@@ -95,7 +100,7 @@
         NSInteger cardsPerRound     = (cardsPerPlayer * NUM_PLAYERS ) + rules.numCommunityCards;
         int maxCards                = (NUM_CARD_SETS * NUM_CARDS_PER_SET);
         XCTAssert(cardsPerRound <= maxCards,
-                 @"Decksize is %d but size %lu is required. Check configuration in Constants.m",
+                  @"Decksize is %d but size %lu is required. Check configuration in Constants.m",
                   maxCards, (long)cardsPerRound);
         
         /* Ensure that players are consistently dealt the appropriate number of cards */
@@ -104,19 +109,11 @@
             [game dealRound];
             for (Player *player in game.players) {
                 unsigned short numPlayerCards = rules.numFaceDownCards + rules.numFaceUpCards;
-                 XCTAssert(player.hand.count == numPlayerCards,
-                           @"Expected %d cards for player, got %lu", numPlayerCards, (long)player.hand.count);
+                XCTAssert(player.hand.count == numPlayerCards,
+                          @"Expected %d cards for player, got %lu", numPlayerCards, (long)player.hand.count);
             }
         }
     }
-    
-}
-
-- (void)testPerformanceExample {
-    // This is an example of a performance test case.
-    [self measureBlock:^{
-        // Put the code you want to measure the time of here.
-    }];
 }
 
 @end

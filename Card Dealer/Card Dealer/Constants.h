@@ -53,6 +53,9 @@ extern const unsigned short NUM_CARD_SETS;
 /* Number of cards per deck. Should equal number of card values * number of card suits */
 extern const unsigned short NUM_CARDS_PER_SET;
 
+/* Total num cars = NUM_CARD_SETS * NUM_CARDS_PER_SET */
+extern const unsigned short TOTAL_NUM_CARDS;
+
 /* Number of players per game. For this app, it's just a constant */
 extern const unsigned short NUM_PLAYERS;
 
@@ -69,3 +72,4 @@ extern const unsigned short TEXAS_HOLDEM_NUM_COMMUNITY;
 extern const unsigned short FIVE_CARD_STUD_NUM_FACE_UP;
 extern const unsigned short FIVE_CARD_STUD_NUM_FACE_DOWN;
 extern const unsigned short FIVE_CARD_STUD_NUM_COMMUNITY;
+

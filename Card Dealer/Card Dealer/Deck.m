@@ -26,7 +26,7 @@ static NSArray *CARD_SUITS;
 /*  When class is initialized, we create NSArrays of the enums
  so that we can perform fast iteration to create the new deck */
 + (void)initialize {
-    CARD_VALUES = @[
+    CARD_VALUES = [@[
                     NSNumberFromCardValue(kCardValueAce),
                     NSNumberFromCardValue(kCardValueTwo),
                     NSNumberFromCardValue(kCardValueThree),
@@ -40,14 +40,14 @@ static NSArray *CARD_SUITS;
                     NSNumberFromCardValue(kCardValueJack),
                     NSNumberFromCardValue(kCardValueQueen),
                     NSNumberFromCardValue(kCardValueKing),
-                    ];
+                    ] retain];
     
-    CARD_SUITS = @[
+    CARD_SUITS = [@[
                     NSNumberFromCardSuit(kCardSuitClubs),
                     NSNumberFromCardSuit(kCardSuitSpades),
                     NSNumberFromCardSuit(kCardSuitHearts),
                     NSNumberFromCardSuit(kCardSuitDiamonds)
-                    ];
+                    ] retain];
     
     /* The following assumes no jokers/wildcards are used.  */
     NSAssert(NUM_CARDS_PER_SET == CARD_SUITS.count * CARD_VALUES.count,
@@ -80,7 +80,7 @@ static NSArray *CARD_SUITS;
 
 + (Deck *)newDeck {
     /* Setup the cardStack with all possible permutations of CardValue*CardSuit */
-    NSInteger numCards          = NUM_CARDS_PER_SET * NUM_CARD_SETS;
+    NSInteger numCards          = TOTAL_NUM_CARDS;
     NSMutableArray *cardStack   = [NSMutableArray arrayWithCapacity:numCards];
     int num_sets_added          = 0;
     
@@ -93,7 +93,7 @@ static NSArray *CARD_SUITS;
             for (NSNumber *suit in CARD_SUITS) {
                 Card *card =    [Card cardWithValue:CardValueFromNumber(value)
                                               suit:CardSuitFromNumber(suit) ];
-                [cardStack addObject:card];
+                [cardStack addObject:[card retain]];
             }
         }
         num_sets_added++;

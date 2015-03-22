@@ -13,6 +13,7 @@
  */
 const unsigned short NUM_CARD_SETS                  = 1;
 const unsigned short NUM_CARDS_PER_SET              = 52;
+const unsigned short TOTAL_NUM_CARDS                = NUM_CARD_SETS * NUM_CARDS_PER_SET;
 
 /*
  * Player configuration

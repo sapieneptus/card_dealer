@@ -37,7 +37,7 @@ static Game *sharedGame = nil;
             [players addObject:[Player new]];
         }
         
-        _players = [NSArray arrayWithArray:players];
+        _players = [[NSArray arrayWithArray:players] retain];
     }
     return self;
 }
