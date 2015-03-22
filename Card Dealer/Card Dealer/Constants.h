@@ -50,7 +50,7 @@ typedef NS_ENUM(CardSuitType, CardSuit) {
 /* Number of sets of cards to use in a single deck */
 extern const unsigned short NUM_CARD_SETS;
 
-/* Number of cards per deck. Should equal number of card values * number of card suits */
+/* Number of cards per set. Should equal number of card values * number of card suits */
 extern const unsigned short NUM_CARDS_PER_SET;
 
 /* Total num cars = NUM_CARD_SETS * NUM_CARDS_PER_SET */
