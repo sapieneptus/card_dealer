@@ -68,8 +68,10 @@ static NSArray *CARD_SUITS;
         
         _cardStack = [cards retain];
         
-        /*  nextDrawIndex starts at the end of the array, since removing the last
-         object is the most performant removal operation on NSMutableArray */
+        /*  
+            nextDrawIndex starts at the end of the array, since removing the last
+            object is the most performant removal operation on NSMutableArray
+         */
         
         _nextDrawIndex  = _cardStack.count - 1;
     }
@@ -85,15 +87,15 @@ static NSArray *CARD_SUITS;
     int num_sets_added          = 0;
     
     /*  
-        We'll want to synthesize a stack of NUM_DECKS 52 card decks.
-        Apparently, some variations of poker call for several 52-card decks
+        We'll want to synthesize a stack of NUM_DECKS card sets.
+        Apparently, some variations of poker call for several decks to be combined into one deck
      */
     while (num_sets_added < NUM_CARD_SETS) {
         for (NSNumber *value in CARD_VALUES) {
             for (NSNumber *suit in CARD_SUITS) {
-                Card *card =    [Card cardWithValue:CardValueFromNumber(value)
-                                              suit:CardSuitFromNumber(suit) ];
-                [cardStack addObject:[card retain]];
+                Card *card =    [[Card cardWithValue:CardValueFromNumber(value)
+                                              suit:CardSuitFromNumber(suit) ] retain];
+                [cardStack addObject:card];
             }
         }
         num_sets_added++;
@@ -112,15 +114,17 @@ static NSArray *CARD_SUITS;
  *  Presumably, this is an error condition, as the deck should 
  *  be sufficiently large to handle the number of players/game. 
  *  It is also not reasonable to under-deal a player. 
- *  
- *  The calling method should therefore check for the nil case.
+ *
  */
 - (NSArray *)drawCards:(unsigned short)num;{
     NSMutableArray *cards = [NSMutableArray arrayWithCapacity:num];
     
     while ( num-- ) {
         /* Check that we have more cards left */
-        if (_nextDrawIndex == 0) { return nil; }
+        if (_nextDrawIndex == 0) {
+            NSAssert(NO, @"Attempted to draw %d cards from an empty deck", num);
+            return nil;
+        }
         
         /* Pop the next card from the stack */
         Card *next = _cardStack[_nextDrawIndex];

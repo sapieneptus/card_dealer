@@ -11,6 +11,7 @@
 @interface GameViewController : UIViewController<UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate>
 
 @property (retain, nonatomic) IBOutlet UITableView *gameInfoTable;
+@property (retain, nonatomic) IBOutlet UILabel *gameNameLabel;
 
 - (IBAction)newGamePressed:(id)sender;
 - (IBAction)dealRoundPressed:(id)sender;

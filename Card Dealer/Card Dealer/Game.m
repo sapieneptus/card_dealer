@@ -40,7 +40,7 @@ static Game *sharedGame = nil;
         _players = [[NSArray arrayWithArray:players] retain];
         
         /*  We don't bother initializing communityCards or rules because they haven't
-            been set by the player yet. */
+            been set by the user yet. */
     }
     return self;
 }
@@ -68,8 +68,6 @@ static Game *sharedGame = nil;
 - (void)drawCommunityCards {
     [_communityCards release];
     _communityCards = [[_deck drawCards:_rules.numCommunityCards] retain];
-    NSAssert(_communityCards,
-             @"Deck became overdrawn. Ensure decksize can handle number of playser/rules");
     
     /* Turn Community Cards Face Up */
     for (Card *card in _communityCards) {
@@ -87,14 +85,10 @@ static Game *sharedGame = nil;
         
         /* Get numFaceUpCards cards, turn them face up */
         NSArray *playerFaceUp = [_deck drawCards:_rules.numFaceUpCards];
-        NSAssert(playerFaceUp,
-                 @"Deck became overdrawn. Ensure decksize can handle number of playser/rules");
         for (Card *card in playerFaceUp) { card.faceup = YES; }
         
         /* Get face down cards */
         NSArray *playerFaceDown = [_deck drawCards:_rules.numFaceDownCards];
-        NSAssert(playerFaceDown,
-                 @"Deck became overdrawn. Ensure decksize can handle number of playser/rules");
 
         /* Deal cards to player */
         NSMutableArray *playerCards = [NSMutableArray arrayWithArray:playerFaceUp];

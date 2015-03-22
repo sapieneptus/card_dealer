@@ -113,7 +113,7 @@ static const NSArray *GAME_RULES_OPTION_NAMES;
         [cell fillFromCards:[Game sharedGame].communityCards];
     } else {
         /* Since index path row is 0 indexed, we can add 1 to get a more natural looking enumeration. */
-        cell.playerNameLabel.text   = [NSString stringWithFormat:@"Player %ld", indexPath.row + 1];
+        cell.playerNameLabel.text   = [NSString stringWithFormat:@"Player %ld", indexPath.row + 1L];
         Player *player              = [Game sharedGame].players[indexPath.row];
         [cell fillFromCards:player.hand];
     }
@@ -131,8 +131,13 @@ static const NSArray *GAME_RULES_OPTION_NAMES;
     if (buttonIndex == 0) {
         /* Canel button, do nothing */
     } else {
-        /* Get the corresponding RuleSet and start a new game */
+        /* Get the corresponding RuleSet*/
         RuleSet *rules = GAME_RULES_OPTIONS[buttonIndex - 1];
+        
+        /* Update UI to show new game title */
+        _gameNameLabel.text = rules.name;
+        
+        /* Start a new game with the chosen rules */
         [[Game sharedGame] newGame:rules];
         [_gameInfoTable reloadData];
         
@@ -170,6 +175,7 @@ static const NSArray *GAME_RULES_OPTION_NAMES;
 #pragma mark - Dealloc
 - (void)dealloc {
     [_gameInfoTable release];
+    [_gameNameLabel release];
     [super dealloc];
 }
 
