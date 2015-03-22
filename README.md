@@ -60,15 +60,21 @@ Players should have a method for receiving a new hand of cards, which involves d
 ### Deck
 A deck can be thought of as two collections of cards: the facedown stack from which you draw, and the 
 cards that are no longer in the deck (either in play or discarded) but will return to the deck at the next 
-round. Instead of maintaining two separate objects, however, we can simply have a `short` index which indicates
-the next card to draw. The index start at the top of the stack and decrement each time a card is drawn. The 
-cards above the index are then considered to be in play/discared/not available for draw. Recombining them 
-with the deck is then very simple: just reset the index. 
+round. For this app, I decided to implement the 'drawable' portion as a simple stack: when players draw cards, 
+they simply pop cards off of the stack and store them in their own hand array. The game system should enforce that all players replace their hands in the deck at the end of each round (though you might imagine that some games
+might have variations, e.g. that discarded cards should be kept in a 'used' pile for some amount of time). 
+
+I felt this was the ideal design choice for a deck because it closely resembles reality and thus allows for
+the same types variations you might expect. The principle is that each card should only be owned by a single 
+object at any given point in time, just like a real playing card. Alternative design decisions may have
+included things like maintaining the deck as two stacks (used and unused) in order to enforce that the 
+deck never accidentally loses cards. However, that approach causes additional overhead of making 
+sure there are no duplicate references to 'used' cards.
 
 There should be a class method for generating a new shuffled deck as well as a `shuffle` instance method.
 `- (void)shuffle` will shuffle the undrawn portion of the underlying mutable array in place, since we can 
 do that easily with a mutable array (as opposed to, say, a linked-list implementation of a stack). 
-Finally, there should be a `rebuild` method to recombine all of the discarded cards with the draw stack. 
+Finally, there should be an `addCards` method to push new cards onto the stack. 
 
 ### Card
 Cards need to be aware of their value (number/court), suit, and faceup/facedown status. 
@@ -108,7 +114,8 @@ the RuleSet to determine how many cards to take from the Deck and in what face u
 they should be. It then iterates through the players and gives them cards as appropriate. 
 
 The game should also have a method to start a new game, which will accept an enum representing which 
-set of rules (Hold'em or Stud), shuffle the deck and deal the first round using the new RuleSet.
+set of rules (Hold'em or Stud), collect cards from all players/community pool, shuffle the deck and 
+deal the first round using the new RuleSet.
 
 Since winners/hand evaluation are not part of this project, that's really all we need from our models. 
 
