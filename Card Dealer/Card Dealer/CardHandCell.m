@@ -9,14 +9,18 @@
 #import "CardHandCell.h"
 #import "Card.h"
 
-#define START_Y     35
-#define START_X     10
-#define PADDING     10
-#define CARD_HEIGHT 50
-#define CARD_WIDTH  30
+#define CARD_START_Y     35
+#define CARD_START_X     20
+#define CARD_PADDING     25
+#define CARD_HEIGHT 65
+#define CARD_WIDTH  40
+
 
 @interface CardHandCell ()
 @property (nonatomic, retain) NSMutableArray *cardImageViews;
+
+/* Remove current card images from subviews so they can be released */
+- (void)clearCards;
 @end
 
 @implementation CardHandCell
@@ -35,9 +39,11 @@
 }
 
 - (void)fillFromCards:(NSArray *)cards {
+    [self clearCards];
     
-    
-    float x = START_X, y = START_Y;
+    /* Layout cards left to right. 
+     Facedown cards will be slanted toward the right */
+    float x = CARD_START_X, y = CARD_START_Y;
     for (Card *card in cards) {
         UIImage *cardImage = [UIImage imageNamed:[NSString stringWithFormat:@"%@.png", card.description]];
         if (cardImage) {
@@ -50,7 +56,10 @@
             cardImageView.frame         = frame;
             [self addSubview:cardImageView];
             
-            x += cardImageView.frame.size.width + PADDING;
+            x += CARD_WIDTH + CARD_PADDING;
+            if (!card.faceup) {
+                cardImageView.transform = CGAffineTransformMakeRotation((M_PI * 45 / 180));
+            }
             
             [_cardImageViews addObject:cardImageView];
         }
