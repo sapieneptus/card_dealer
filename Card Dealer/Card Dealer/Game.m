@@ -114,6 +114,10 @@ static Game *sharedGame = nil;
     [self dealRound];
 }
 
+- (BOOL)hasCommunityPool {
+    return self.rules.numCommunityCards > 0;
+}
+
 
 #pragma mark - MRR Method Overrides
 

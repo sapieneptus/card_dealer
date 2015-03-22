@@ -19,6 +19,9 @@
 /* Start a new game with a given ruleset */
 - (void)newGame:(RuleSet *)rules;
 
+/* Convenience method to determine if current rule set has community cards */
+- (BOOL)hasCommunityPool;
+
 /* Game Singleton */
 + (Game *)sharedGame;
 @end

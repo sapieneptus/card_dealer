@@ -55,19 +55,23 @@ static const NSArray *GAME_RULES_OPTION_NAMES;
 
 /* One row for each player + 1 row for the  */
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    switch (section) {
-            HANDLE_CASE(kTableSectionCommunity, 1);
-            HANDLE_CASE(kTableSectionPlayers,   [Game sharedGame].players.count);
-        default:
-            NSAssert(NO, @"Unhandled section for table: %ld", (long)section);
-            return 0;
-            break;
+    if ([[Game sharedGame] hasCommunityPool]) {
+        switch (section) {
+                HANDLE_CASE(kTableSectionCommunity, 1);
+                HANDLE_CASE(kTableSectionPlayers,   [Game sharedGame].players.count);
+            default:
+                NSAssert(NO, @"Unhandled section for table: %ld", (long)section);
+                return 0;
+                break;
+        }
+    } else {
+        return [Game sharedGame].players.count;
     }
 }
 
 /* There are up to two sections: Community Card section (if any), and player section*/
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    if ([Game sharedGame].communityCards.count > 0) {
+    if ([[Game sharedGame] hasCommunityPool]) {
         return 2;
     } else {
         return 1;
@@ -75,7 +79,7 @@ static const NSArray *GAME_RULES_OPTION_NAMES;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    if ([Game sharedGame].communityCards.count > 0) {
+    if ([[Game sharedGame] hasCommunityPool]) {
         switch (section) {
                 HANDLE_CASE(kTableSectionPlayers,   PLAYER_HANDS_SECTION_TITLE);
                 HANDLE_CASE(kTableSectionCommunity, COMMUNITY_POOL_SECTION_TITLE);
@@ -96,8 +100,12 @@ static const NSArray *GAME_RULES_OPTION_NAMES;
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CELL_ID] autorelease];
     }
     
-    if (indexPath.section == kTableSectionCommunity) {
-        cell.textLabel.text = @"";
+    if ([[Game sharedGame] hasCommunityPool]) {
+        if (indexPath.section == kTableSectionCommunity) {
+            cell.textLabel.text = @"";
+        } else {
+            cell.textLabel.text = [NSString stringWithFormat:@"Player %ld", indexPath.row + 1];
+        }
     } else {
         cell.textLabel.text = [NSString stringWithFormat:@"Player %ld", indexPath.row + 1];
     }
@@ -114,7 +122,7 @@ static const NSArray *GAME_RULES_OPTION_NAMES;
         /* Canel button, do nothing */
     } else {
         /* Get the corresponding RuleSet and start a new game */
-        RuleSet *rules = GAME_RULES_OPTIONS[buttonIndex];
+        RuleSet *rules = GAME_RULES_OPTIONS[buttonIndex - 1];
         [[Game sharedGame] newGame:rules];
         [_gameInfoTable reloadData];
         
