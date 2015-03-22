@@ -24,9 +24,12 @@
     _hand   = [hand retain];
 }
 
-- (void)discardHand {
+- (NSArray *)discardHand {
+    NSArray *hand   = [_hand copy];
+    
     [_hand  release];
-    _hand   = nil;
+    _hand           = nil;
+    return [hand autorelease];
 }
 
 - (void)dealloc {

@@ -55,18 +55,24 @@ static Game *sharedGame = nil;
 
 #pragma mark - Gameplay methods
 - (void)resetTableState {
-    /* Prepare the deck for the round */
-    [_deck rebuild];
-    [_deck shuffle];
     
-    /* Clear players' hands */
+    /* Return players' hands to the deck */
     for (Player *player in _players) {
-        [player discardHand];
+        [_deck addCards:[player discardHand]];
     }
+    
+    /* Add community cards back (if any), and set the pool to nil */
+    if (_communityCards) {
+        [_deck addCards:_communityCards];
+        
+        [_communityCards release];
+        _communityCards = nil;
+    }
+    
+    [_deck shuffle];
 }
 
 - (void)drawCommunityCards {
-    [_communityCards release];
     _communityCards = [[_deck drawCards:_rules.numCommunityCards] retain];
     
     /* Turn Community Cards Face Up */
@@ -80,15 +86,12 @@ static Game *sharedGame = nil;
     [self drawCommunityCards];
     
     for (Player *player in _players) {
-        /* Clear player's hand */
-        [player discardHand];
-        
         /* Get numFaceUpCards cards, turn them face up */
-        NSArray *playerFaceUp = [_deck drawCards:_rules.numFaceUpCards];
+        NSArray *playerFaceUp       = [_deck drawCards:_rules.numFaceUpCards];
         for (Card *card in playerFaceUp) { card.faceup = YES; }
         
         /* Get face down cards */
-        NSArray *playerFaceDown = [_deck drawCards:_rules.numFaceDownCards];
+        NSArray *playerFaceDown     = [_deck drawCards:_rules.numFaceDownCards];
 
         /* Deal cards to player */
         NSMutableArray *playerCards = [NSMutableArray arrayWithArray:playerFaceUp];

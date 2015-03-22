@@ -33,7 +33,7 @@
     
     /* Try shuffling, removing a card, then repeating until no cards left. */
     @try {
-        while ([deck drawCards:1]) {
+        while ( [deck drawCards:1].count > 0 ) {
             [deck shuffle];
         }
     }
@@ -44,26 +44,39 @@
 }
 
 - (void)testDeckIntegrity {
-    Deck *deck          = [Deck newDeck];
+    Deck *deck              = [Deck newDeck];
+    [deck shuffle];
     
-    NSArray *cards      = [deck drawCards:TOTAL_NUM_CARDS];
-    [deck rebuild];
-    NSArray *newCards   = [deck drawCards:TOTAL_NUM_CARDS];
+    NSArray *forwardsCards  = [deck drawCards:TOTAL_NUM_CARDS];
+    XCTAssert(forwardsCards.count == TOTAL_NUM_CARDS,
+              @"Drew %d cards but only got %ld", TOTAL_NUM_CARDS, (long)forwardsCards.count);
+    [deck addCards:forwardsCards];
     
-    for (int i = 0; i < cards.count; i++) {
-        XCTAssert(cards[i] == newCards[i], @"Deck is out of order after draw");
+    /* Deck is now backwards */
+    
+    NSArray *backwardsCards = [deck drawCards:TOTAL_NUM_CARDS];
+    [deck addCards:backwardsCards];
+    XCTAssert(backwardsCards.count == TOTAL_NUM_CARDS,
+              @"Drew %d cards but only got %ld", TOTAL_NUM_CARDS, (long)backwardsCards.count);
+    
+    /* Deck should now be forwards again */
+    
+    NSArray *newCards       = [deck drawCards:TOTAL_NUM_CARDS];
+    
+    for (int i = 0; i < newCards.count; i++) {
+        XCTAssert(forwardsCards[i] == newCards[i], @"Deck is out of order after draw");
     }
     
     /* Make sure that when a card is drawn, it can't be drawn again.
      Note that we can't use isEqual, since it is possible for there to be
      duplicates if NUM_CARD_SETS > 1 */
     
-    [deck rebuild];
+    deck = [Deck newDeck];
     [deck shuffle];
     
     Card *card = [deck drawCards:1][0];
     NSArray *draw;
-    while ( (draw = [deck drawCards:1]) != nil) {
+    while ( (draw = [deck drawCards:1]).count > 0 ) {
         Card *drawn = draw[0];
         XCTAssert(card != drawn, @"The same card was drawn twice from the deck.");
     }

@@ -10,7 +10,6 @@
 #import "Constants.h"
 
 @interface Deck()
-@property (nonatomic)           unsigned short  nextDrawIndex;
 @property (nonatomic, retain)   NSMutableArray  *cardStack;
 
 /* private initialization method */
@@ -65,15 +64,7 @@ static NSArray *CARD_SUITS;
 /* Private init method used by class constructor */
 - (id)initWithCardStack:(NSMutableArray *)cards {
     if (self = [super init]) {
-        
         _cardStack = [cards retain];
-        
-        /*  
-            nextDrawIndex starts at the end of the array, since removing the last
-            object is the most performant removal operation on NSMutableArray
-         */
-        
-        _nextDrawIndex  = _cardStack.count - 1;
     }
     return self;
 }
@@ -107,56 +98,39 @@ static NSArray *CARD_SUITS;
 #pragma mark - Public API
 
 /*
- * drawCards doesn't mutate the stack, it simply returns the card at
- * index `nextDrawIndex` and decrements `nextDrawIndex`.
+ * drawCards removes num cards from the stack and returns them
+ * in a new NSArray object. Attempts to draw num cards but 
+ * will return a smaller array if fewer are available.
  *
- *  If less cards are available than requested, returns nil.
- *  Presumably, this is an error condition, as the deck should 
- *  be sufficiently large to handle the number of players/game. 
- *  It is also not reasonable to under-deal a player. 
- *
+ * Client code must therefore verify that num drawn == num expected
  */
 - (NSArray *)drawCards:(unsigned short)num;{
     NSMutableArray *cards = [NSMutableArray arrayWithCapacity:num];
     
-    while ( num-- ) {
-        /* Check that we have more cards left */
-        if (_nextDrawIndex == 0) {
-            NSAssert(NO, @"Attempted to draw %d cards from an empty deck", num);
-            return nil;
-        }
+    while ( (num--) && num < _cardStack.count ) {
         
         /* Pop the next card from the stack */
-        Card *next = _cardStack[_nextDrawIndex];
-        [cards addObject:next];
+        Card *next = [_cardStack lastObject];
         
-        /* Move the index of the next draw */
-        _nextDrawIndex--;
+        [cards addObject:next];
+        [_cardStack removeLastObject];
+
     }
     return [NSArray arrayWithArray:cards];
 }
 
+- (void)addCards:(NSArray *)cards {
+    [_cardStack addObjectsFromArray:cards];
+}
+
 - (void)shuffle {
-    /* Standard in-place array shuffle for drawable portion of deck */
-    NSInteger numAvailableCards = _nextDrawIndex + 1;
-    
-    for (int i = 0; i < numAvailableCards; i++) {
-        int index           = (arc4random() % (numAvailableCards - i)) + i;
+    /* Standard in-place array shuffle  */
+    for (int i = 0; i < _cardStack.count; i++) {
+        int index           = (arc4random() % (_cardStack.count - i)) + i;
         Card *tmp           = _cardStack[i];
         _cardStack[i]       = _cardStack[index];
         _cardStack[index]   = tmp;
     }
-}
-
-- (void)rebuild {
-    /* Turn all cards in play face-down */
-    for (int i = _nextDrawIndex - 1; i < _cardStack.count; i++){
-        Card *card  = _cardStack[i];
-        card.faceup = NO;
-    }
-    
-    /* Reset the draw index to the top of the stack */
-    _nextDrawIndex = _cardStack.count - 1;
 }
 
 #pragma mark - Dealloc

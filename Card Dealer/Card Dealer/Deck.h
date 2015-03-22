@@ -11,11 +11,11 @@
 
 @interface Deck : NSObject
 
-/* returns the topmost num cards in the deck, or nil if that many cards aren't available */
+/* returns the topmost num cards in the deck, or less if only fewer are available */
 - (NSArray *)drawCards:(unsigned short)num;
 
-/* Replaces all cards in the deck */
-- (void)rebuild;
+/* Adds cards to the deck, e.g. when players discard their hands after a round */
+- (void)addCards:(NSArray *)cards;
 
 /* Randomizes order of cards currently available for draw */
 - (void)shuffle;

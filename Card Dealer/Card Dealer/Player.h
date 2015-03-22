@@ -12,7 +12,7 @@
 
 @property (nonatomic, retain, setter=dealHand:)   NSArray *hand;
 
-/*  Clears the players hand. Essentially an alias for dealHand:nil */
-- (void)discardHand;
+/*  Clears the players hand and returns all cards from the hand */
+- (NSArray *)discardHand;
 
 @end
