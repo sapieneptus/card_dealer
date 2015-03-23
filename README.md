@@ -72,18 +72,17 @@ deck never accidentally loses cards. However, that approach causes additional ov
 sure there are no duplicate references to 'used' cards.
 
 There should be a class method for generating a new shuffled deck as well as a `shuffle` instance method.
-`- (void)shuffle` will shuffle the undrawn portion of the underlying mutable array in place, since we can 
+`- (void)shuffle` will shuffle the underlying mutable array in place, since we can 
 do that easily with a mutable array (as opposed to, say, a linked-list implementation of a stack). 
 Finally, there should be an `addCards` method to push new cards onto the stack. 
 
 ### Card
 Cards need to be aware of their value (number/court), suit, and faceup/facedown status. 
 Therefore, this will be represented by three variables: an enum value Ace through King 
-(represented by numbers 1 through 13), an enum value representing their suit (taken from the standard French 
-suits, Spade | Club | Hearts | Diamonds, see http://en.wikipedia.org/wiki/Playing_card#Modern_deck_formats), 
-and an enum value representing the color red or black. The faceup/down status can be maintained with a `BOOL`.
+(represented by numbers 1 through 13), and an enum value representing their suit (taken from the standard French 
+suits, Spade | Club | Hearts | Diamonds, see http://en.wikipedia.org/wiki/Playing_card#Modern_deck_formats). The faceup/down status can be maintained with a `BOOL`.
 
-Note that if hands were being evaluated, we'd also need to note the cards color. However, this is not necessary
+Note that if hands were being evaluated, we'd also need to note the card's color. However, this is not necessary
 for this app, since evaluation of the hands is out of scope. 
 
 ### RuleSet
@@ -113,7 +112,7 @@ The game should have a method to deal out a new round, which will first shuffle 
 the RuleSet to determine how many cards to take from the Deck and in what face up/down configuration 
 they should be. It then iterates through the players and gives them cards as appropriate. 
 
-The game should also have a method to start a new game, which will accept an enum representing which 
+The game should also have a method to start a new game, which will accept a
 set of rules (Hold'em or Stud), collect cards from all players/community pool, shuffle the deck and 
 deal the first round using the new RuleSet.
 
@@ -132,5 +131,8 @@ would look pretty awful for a card game app.
 Since there is only one view, we only need one VC. I imagine this class will be fairly barebones, as it more or
 less only has to pass events from the UI directly to the `Game` or its `Deck`, and reflect the results of 
 those actions back in the UI. There's virtually no middle step/process between a UI action and a 
-method call on the underlying model. 
+method call on the underlying model.
+
+Most of the class comprises handling the manipulation of the main UI component (tableview). A custom cell
+is used to display hands, which contains logic for display and simple animation. 
 
