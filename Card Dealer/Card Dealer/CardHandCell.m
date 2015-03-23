@@ -13,8 +13,11 @@
 @interface CardHandCell ()
 @property (nonatomic, retain) NSMutableArray *cardImageViews;
 
+/* Maintain a reference to dealt cards so we can determine whether or not to re-animate */
+@property (nonatomic, retain) NSArray       *cards;
+
 /* Remove current card images from subviews so they can be released */
-- (void)clearCards;
+- (void)clearTable;
 
 /* Animates the card offscreen and removes it from its superview */
 - (void)moveCardOut:(UIImageView *)cardImage
@@ -37,9 +40,7 @@
     _cardImageViews         = [[NSMutableArray array] retain];
 }
 
-/* Animates the cards offscreen and removes them from their superview */
-- (void)clearCards {
-    
+- (void)clearTable {
     float   anim_delay_factor   = CARD_EXIT_ANIM_DELAY_FACTOR,
             anim_constant       = CARD_EXIT_ANIM_CONSTANT,
             screenWidth         = [UIScreen mainScreen].bounds.size.width;
@@ -70,12 +71,21 @@
  *  The end result is that the current cards on the 
  *  table will be swept off as the new cards are 
  *  being pulled in.
+ *
+ *  If the cards passed in are the same exact array as before, 
+ *  it means the UITableView is just redrawing the same cell
+ *  and we don't need to re-animate them.
  */
 - (void)fillFromCards:(NSArray *)cards {
-    [self clearCards];
+    if (_cards == cards) {
+        return;
+    }
     
-    /* Layout cards left to right. 
-     Facedown cards will be slanted toward the right */
+    [self clearTable];
+    [_cards release];
+    _cards = [cards retain];
+    
+    /* Layout cards left to right.  Facedown cards will be slanted toward the right */
     float   x           = CARD_START_X,
             anim_delay  = 2;
     
@@ -139,6 +149,7 @@
 
 #pragma mark - Dealloc
 - (void)dealloc {
+    [_cards release];
     [_playerNameLabel release];
     [_cardImageViews dealloc];
     [super dealloc];
