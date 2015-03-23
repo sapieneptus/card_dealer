@@ -42,3 +42,14 @@ const float CARD_START_X                            = 20.0;
 const float CARD_PADDING                            = 25.0;
 const float CARD_HEIGHT                             = 65.0;
 const float CARD_WIDTH                              = 40.0;
+
+/*
+ *  Constants for animation
+ */
+
+const float CARD_EXIT_ANIM_DELAY_FACTOR             = 3.0;
+const float CARD_EXIT_ANIM_CONSTANT                 = 0.15;
+const float CARD_ENTER_ANIM_DELAY                   = 0.2;
+const float CARD_ENTER_ANIM_CONSTANT                = 0.2;
+const float CARD_ENTER_ANIM_DELAY_FACTOR            = 2.0;
+const float CARD_TILT_RADIANS                       = (M_PI * 45 / 180);

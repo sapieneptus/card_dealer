@@ -16,6 +16,7 @@ typedef unsigned short CardSuitType;
 #define NSNumberFromCardSuit( val )     [NSNumber numberWithShort:( val )]
 #define CardValueFromNumber( num )      [( num ) shortValue]
 #define CardSuitFromNumber( num )       [( num ) shortValue]
+#define F_INVERSE( x )                  1.0 / (( x ))
 
 /* Convenience macro to help clean up the switch statements where 
  * a value is returned without any other operations performed */
@@ -81,6 +82,17 @@ extern const float CARD_START_X;
 extern const float CARD_PADDING;
 extern const float CARD_HEIGHT;
 extern const float CARD_WIDTH;
+
+/*
+ *  Constants for animation
+ */
+
+extern const float CARD_EXIT_ANIM_DELAY_FACTOR;
+extern const float CARD_EXIT_ANIM_CONSTANT;
+extern const float CARD_ENTER_ANIM_DELAY;
+extern const float CARD_ENTER_ANIM_CONSTANT;
+extern const float CARD_ENTER_ANIM_DELAY_FACTOR;
+extern const float CARD_TILT_RADIANS;
 
 /*
  *   String Constants

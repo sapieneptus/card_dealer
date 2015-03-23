@@ -112,6 +112,9 @@ static NSArray *CARD_SUITS;
         /* Pop the next card from the stack */
         Card *next = [_cardStack lastObject];
         
+        /* Cards should be added face-down */
+        next.faceup = NO;
+        
         [cards addObject:next];
         [_cardStack removeLastObject];
 
